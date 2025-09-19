@@ -91,7 +91,7 @@ namespace WebForm1
             }
             catch (Exception ex)
             {
-                // loguear si quieres
+                // Manejo de Excepciones ex.message
             }
 
             return new List<Employee>();
@@ -130,7 +130,7 @@ namespace WebForm1
             }
             catch (Exception ex)
             {
-                // loguear si quieres
+                // Manejo de Excepciones ex.message
             }
 
             return new List<Department>();
