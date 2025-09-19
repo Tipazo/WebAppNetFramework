@@ -3,6 +3,7 @@ using System.Web.UI;
 using RestSharp;
 using Newtonsoft.Json;
 using System.Configuration;
+using System.Collections.Generic;
 
 namespace WebForm1
 {
@@ -21,10 +22,18 @@ namespace WebForm1
             public Department data { get; set; }
         }
 
+        public class ApiValidationError
+        {
+            public string Title { get; set; }
+            public int Status { get; set; } = 200;
+            public Dictionary<string, string[]> Errors { get; set; }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                lblErrores.Visible = false;
                 string id = Request.QueryString["id"];
                 if (!string.IsNullOrEmpty(id))
                 {
@@ -75,7 +84,20 @@ namespace WebForm1
             }
             else
             {
-                Response.Write("Error al guardar: " + response.Content);
+                var errorResponse = JsonConvert.DeserializeObject<ApiValidationError>(response.Content);
+                if (errorResponse != null && errorResponse.Errors != null)
+                {
+                    lblErrores.Text = "<ul class='list-unstyled'>";
+                    foreach (var fieldError in errorResponse.Errors)
+                    {
+                        foreach (var message in fieldError.Value)
+                        {
+                            lblErrores.Text += $"<li><b>{fieldError.Key}</b>: {message}</li>";
+                        }
+                    }
+                    lblErrores.Text += "</ul>";
+                    lblErrores.Visible = true;
+                }
             }
         }
 

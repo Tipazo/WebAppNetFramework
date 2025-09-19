@@ -49,6 +49,12 @@ namespace WebForm1
             public int code { get; set; } = 1;
         }
 
+        public class ApiValidationError
+        {
+            public string Title { get; set; }
+            public int Status { get; set; } = 200;
+            public Dictionary<string, string[]> Errors { get; set; }
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -59,6 +65,8 @@ namespace WebForm1
                 ddlDepartamentos.DataTextField = "Name";
                 ddlDepartamentos.DataValueField = "DepartmentID";
                 ddlDepartamentos.DataBind();
+
+                lblErrores.Visible = false;
 
                 string id = Request.QueryString["id"];
                 if (!string.IsNullOrEmpty(id))
@@ -148,7 +156,20 @@ namespace WebForm1
             }
             else
             {
-                Response.Write("Error al guardar: " + response.Content);
+                var errorResponse = JsonConvert.DeserializeObject<ApiValidationError>(response.Content);
+                if (errorResponse != null && errorResponse.Errors != null)
+                {
+                    lblErrores.Text = "<ul class='list-unstyled'>";
+                    foreach (var fieldError in errorResponse.Errors)
+                    {
+                        foreach (var message in fieldError.Value)
+                        {
+                            lblErrores.Text += $"<li><b>{fieldError.Key}</b>: {message}</li>";
+                        }
+                    }
+                    lblErrores.Text += "</ul>";
+                    lblErrores.Visible = true;
+                }
             }
         }
 

@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container mt-4">
         <h2 class="mb-4">Editar Empleado</h2>
-
+        <asp:Label ID="lblErrores" runat="server" CssClass="alert alert-danger" EnableViewState="false" Style="display:block;"></asp:Label>
         <asp:HiddenField ID="hfEmployeeID" runat="server" />
 
         <div class="mb-3">

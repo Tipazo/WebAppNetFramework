@@ -5,6 +5,8 @@
     <div class="container mt-4">
         <h2 class="mb-4">Crear Nuevo Departamento</h2>
 
+        <asp:Label ID="lblErrores" runat="server" CssClass="alert alert-danger" EnableViewState="false" Style="display:block;"></asp:Label>
+
         <div class="mb-3">
             <label for="txtNombre" class="form-label">Nombre</label>
             <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" />

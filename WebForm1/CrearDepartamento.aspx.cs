@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System.Configuration;
 using RestSharp;
+using System.Collections.Generic;
 
 namespace WebForm1
 {
@@ -28,8 +29,19 @@ namespace WebForm1
             public string message { get; set; } = "";
         }
 
+        public class ApiValidationError
+        {
+            public string Title { get; set; }
+            public int Status { get; set; } = 200;
+            public Dictionary<string, string[]> Errors { get; set; }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                lblErrores.Visible = false;
+            }
         }
 
         protected void btnCrear_Click(object sender, EventArgs e)
@@ -57,7 +69,20 @@ namespace WebForm1
                 }
 
             } else {
-                Response.Write("Error al crear: " + response.Content);
+                var errorResponse = JsonConvert.DeserializeObject<ApiValidationError>(response.Content);
+                if (errorResponse != null && errorResponse.Errors != null)
+                {
+                    lblErrores.Text = "<ul class='list-unstyled'>";
+                    foreach (var fieldError in errorResponse.Errors)
+                    {
+                        foreach (var message in fieldError.Value)
+                        {
+                            lblErrores.Text += $"<li><b>{fieldError.Key}</b>: {message}</li>";
+                        }
+                    }
+                    lblErrores.Text += "</ul>";
+                    lblErrores.Visible = true;
+                }
             }
         }
 

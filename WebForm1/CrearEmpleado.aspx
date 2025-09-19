@@ -4,6 +4,8 @@
     <div class="container mt-4">
         <h2 class="mb-4">Crear Nuevo Empleado</h2>
 
+        <asp:Label ID="lblErrores" runat="server" CssClass="alert alert-danger" EnableViewState="false" Style="display:block;"></asp:Label>
+
         <div class="mb-3">
             <label for="txtFirstName" class="form-label">Nombre</label>
             <asp:TextBox ID="txtFirstName" runat="server" CssClass="form-control" />
@@ -63,5 +65,6 @@
 
         <asp:Button ID="btnCrear" runat="server" Text="Crear" CssClass="btn btn-success" OnClick="btnCrear_Click" />
         <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-secondary ms-2" OnClick="btnCancelar_Click" CausesValidation="false" />
+        
     </div>
 </asp:Content>

@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h2>Editar Departamento</h2>
-
+    <asp:Label ID="lblErrores" runat="server" CssClass="alert alert-danger" EnableViewState="false" Style="display:block;"></asp:Label>
     <asp:HiddenField ID="hdnId" runat="server" />
 
     <div>
