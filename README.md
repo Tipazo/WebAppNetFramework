@@ -6,14 +6,14 @@ Ejemplo de aplicación **C# .NET Framework ASP WEB FORMS** que consume una **API
 
 ## 🚀 Requisitos
 - [Visual Studio](https://visualstudio.microsoft.com/) o [Visual Studio Code](https://code.visualstudio.com/)  
-- API del proyecto [`WebApiDemo`](https://github.com/Tipazo/WebApiDemo.git) ejecutándose en local o en servidor  
+- API del proyecto [`WebApi`](https://github.com/Tipazo/WebApi) ejecutándose en local o en servidor  
 
 ---
 
 ## 🔧 Configuración en entorno local
 Para probar la aplicación en **Visual Studio** o **Visual Studio Code**:
 
-1. Localiza el archivo `Web.config` en el proyecto MVC.
+1. Localiza el archivo `Web.config` en el proyecto.
 2. Agrega o modifica la variable de entorno ApiPerfilesUrl:
 
 ```json
